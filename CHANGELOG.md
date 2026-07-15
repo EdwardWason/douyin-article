@@ -1,5 +1,20 @@
 # Changelog
 
+## v4.1.1 — 2026-07-15
+
+### Fixed
+- **TLS 证书校验默认启用**（ClawHub SkillSpector Tool Parameter Abuse ×4 修复）：`fetch_bilibili.py` / `fetch_youtube.py` 中 4 处 `--no-check-certificates` 硬编码改为 `_cert_flags()` 函数控制，默认启用证书校验。仅当用户显式设置环境变量 `SKIP_CERT_CHECK=1` 时禁用（应对偶发的 B站证书过期问题），禁用为用户明确选择而非默认行为。
+- **Description-Behavior Mismatch 修复**：description 的 Do NOT 表述从"视频下载、字幕提取"改为"纯视频文件下载（不转录）、纯字幕提取（不转录）"，明确区分"交付物"与"转录中间步骤"——管线确实会下载音频流作为转录中间产物，但不用于交付视频文件。
+- **Description 声明 yt-dlp 通用平台支持**：description 明确列出 Vimeo/TikTok/Twitter 等通用平台，与代码 `ytdlp-generic` 路由一致，消除 scope-expansion 风险。
+- **Vague Triggers 收窄**：触发词删除"视频翻译"（过于泛化，可能匹配普通翻译请求）和"批量转录视频"（与"批量转录视频链接"重复，保留后者更精确）。
+
+### Changed
+- README 中英文双语同步修改"自动翻译"措辞：从"非中文内容自动翻译为中文"改为"用户使用「双语转录」触发词时，非中文内容翻译为中文"，明确翻译为用户触发的行为而非默认自动执行。
+- SKILL.md "不做"段落与 description Do NOT 保持一致。
+
+### Security
+- **ClawHub SkillSpector 审计响应**：本次升级响应 14 项 findings 中的 10 项合理 findings（4 项 High + 6 项 Medium），4 项过渡修改/误报未修复（subprocess.run 已在权限声明披露；Missing User Warnings 已有整体警告）。
+
 ## v4.1.0 — 2026-07-15
 
 ### Added
