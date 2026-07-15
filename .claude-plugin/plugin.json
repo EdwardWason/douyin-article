@@ -1,0 +1,9 @@
+{
+  "name": "douyin-article",
+  "version": "4.1.0",
+  "description": "批量转录任意平台音视频为结构化 Markdown 逐字稿（三层字幕探测 + 双语对比 + 全平台支持）",
+  "author": "trae-solo",
+  "category": "content-creation",
+  "license": "MIT-0",
+  "tags": ["douyin", "bilibili", "xiaoyuzhou", "youtube", "vimeo", "tiktok", "transcribe", "whisper", "podcast", "batch", "bilingual", "subtitle"]
+}
