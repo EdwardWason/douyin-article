@@ -24,6 +24,16 @@ import sys
 from pathlib import Path
 from typing import Optional
 
+
+def _cert_flags() -> list[str]:
+    """v4.1.1: TLS 证书校验控制。
+
+    默认启用证书校验（安全）。仅当用户明确设置 SKIP_CERT_CHECK=1 时禁用。
+    """
+    if os.environ.get("SKIP_CERT_CHECK") == "1":
+        return ["--no-check-certificates"]
+    return []
+
 SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPT_DIR))
 from common import (
@@ -115,7 +125,7 @@ def _fetch_video_metadata(video_id: str) -> dict:
         find_command("yt-dlp"),
         "--dump-json",
         "--no-warnings",
-        "--no-check-certificates",
+        *_cert_flags(),
         f"https://www.youtube.com/watch?v={video_id}",
     ]
     ok, out = run_cmd(cmd, timeout=60)
@@ -181,7 +191,7 @@ def _download_audio_ytdlp(
         "--write-info-json",
         "-o", str(raw_dir / f"raw_{idx}.%(ext)s"),
         "--no-warnings",
-        "--no-check-certificates",
+        *_cert_flags(),
         url,
     ]
     print(f"     yt-dlp 下载音频...", flush=True)
