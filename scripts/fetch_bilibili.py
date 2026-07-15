@@ -19,10 +19,22 @@ v4.1 升级（三层字幕探测）：
 """
 from __future__ import annotations
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
 from typing import Optional
+
+
+def _cert_flags() -> list[str]:
+    """v4.1.1: TLS 证书校验控制。
+
+    默认启用证书校验（安全）。仅当用户明确设置 SKIP_CERT_CHECK=1 时禁用，
+    用于应对偶发的 B 站证书过期问题。禁用为用户显式选择，非默认行为。
+    """
+    if os.environ.get("SKIP_CERT_CHECK") == "1":
+        return ["--no-check-certificates"]
+    return []
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPT_DIR))
@@ -43,7 +55,7 @@ def _probe_bilibili_metadata(url: str) -> dict:
         find_command("yt-dlp"),
         "--dump-json",
         "--no-warnings",
-        "--no-check-certificates",
+        *_cert_flags(),
         url,
     ]
     ok, out = run_cmd(cmd, timeout=60)
@@ -181,7 +193,7 @@ def fetch_one_bilibili(
         "--write-info-json",
         "-o", str(raw_dir / f"raw_{idx}.%(ext)s"),
         "--no-warnings",
-        "--no-check-certificates",  # B 站证书偶有问题
+        *_cert_flags(),
         url,
     ]
     print(f"     yt-dlp 下载中...", flush=True)
