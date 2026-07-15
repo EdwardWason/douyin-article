@@ -2,17 +2,17 @@
 name: douyin-article
 slug: douyin-article
 displayName: 音视频批量转录为结构化逐字稿
-version: 4.1.0
+version: 4.1.1
 summary: 批量转录任意平台音视频为结构化 Markdown 逐字稿（三层字幕探测 + 双语对比 + 全平台支持）
 license: MIT-0
 description: |
-  批量转录任意平台音视频为结构化 Markdown 逐字稿（每视频独立 .md）。三层字幕探测 + 双语对比 + 全平台支持。触发词：抖音批量转录、B站批量转录、小宇宙转录、YouTube转录、批量转录视频、双语转录、视频翻译。Do NOT use for 单视频转录（用 douyin-transcribe）、作者主页抓取、视频下载、字幕提取。
+  批量转录抖音/B站/小宇宙/YouTube/Vimeo/TikTok/Twitter 等平台音视频为结构化 Markdown 逐字稿（每视频独立 .md）。三层字幕探测 + 双语对比 + 全平台支持（yt-dlp 1700+ extractor）。触发词：抖音批量转录、B站批量转录、小宇宙转录、YouTube转录、双语转录、批量转录视频链接。Do NOT use for 单视频转录（用 douyin-transcribe）、作者主页抓取、纯视频文件下载（不转录）、纯字幕提取（不转录）。
 allowed-tools: "Bash(python:*) Bash(curl:*) Bash(ffmpeg:*) Bash(ffprobe:*) Bash(yt-dlp:*) Bash(agent-browser:*)"
 model: "claude-opus-4-5"
 effort: "medium"
 metadata:
   author: trae-solo
-  version: 4.1.0
+  version: 4.1.1
   category: content-creation
 ---
 
@@ -28,11 +28,11 @@ metadata:
 3. **双语对比**：非中文内容自动翻译为中文，输出「中文译文 + 英文原文 blockquote」段落对比格式
 
 **做**：批量转录 + 语义切分 + 结构化输出 + 双语对比翻译
-**不做**：单视频转录、作者主页抓取、视频下载、字幕提取、PDF/HTML 输出、关键帧抽帧
+**不做**：单视频转录、作者主页抓取、纯视频文件下载（不转录）、纯字幕提取（不转录）、PDF/HTML 输出、关键帧抽帧
 
 ## 触发词
 
-抖音批量转录、批量转录抖音、B站批量转录、批量转录B站、小宇宙转录、批量转录播客、YouTube转录、批量转录YouTube、批量转录视频、双语转录、YouTube双语、视频翻译、Vimeo转录、TikTok转录、批量转录视频链接
+抖音批量转录、批量转录抖音、B站批量转录、批量转录B站、小宇宙转录、批量转录播客、YouTube转录、批量转录YouTube、双语转录、YouTube双语、Vimeo转录、TikTok转录、批量转录视频链接
 
 ## 权限声明
 
