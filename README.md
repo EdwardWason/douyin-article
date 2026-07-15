@@ -6,7 +6,7 @@
 - **5+0.5 阶段管线**：fetch → transcribe（仅无字幕时）→ pack + 语言检测 → 3.5 translate（仅非中文时）→ boundaries → build
 - **全平台支持**：抖音 / B站 / 小宇宙 / YouTube + yt-dlp 1700+ 平台（Vimeo / TikTok / Twitter / X / Twitch / TED 等）
 - **三层字幕探测（v4.1）**：B站公共 API → yt-dlp → Whisper，平台有字幕时跳过 Whisper（节省 95% 能耗）
-- **双语对比翻译**：非中文内容自动翻译为中文，输出「中文译文 + 英文原文 blockquote」段落对比格式
+- **双语对比翻译**：用户使用「双语转录」触发词时，非中文内容翻译为中文，输出「中文译文 + 英文原文 blockquote」段落对比格式
 - **6 路由模型**：lesson / explainer / conversation / demo / narrative / bulletin
 - **Light-plus 原则**：保留推理 / 例子 / 数字 / 限定条件，非摘要
 - **按语义边界切分**，不机械每 60/90 秒切一段
@@ -56,7 +56,7 @@ python scripts/03_5_translate.py prepare --output-dir outputs/batch/work
 python scripts/04_build_output.py --transcript-dir outputs/batch/transcript --boundaries-dir outputs/batch/work --output-dir outputs/batch
 ```
 
-最终输出在 `outputs/batch/share/*.md`。非中文视频自动输出双语对比格式。
+最终输出在 `outputs/batch/share/*.md`。非中文视频在「双语转录」触发词下输出双语对比格式。
 
 ## 文档
 
@@ -80,7 +80,7 @@ Highlights:
 - 5+0.5 stage pipeline: fetch → transcribe (only when no subtitles) → pack + language detection → 3.5 translate (only for non-Chinese) → boundaries → build
 - Full platform support: Douyin / Bilibili / Xiaoyuzhou / YouTube + yt-dlp 1700+ platforms (Vimeo / TikTok / Twitter / X / Twitch / TED, etc.)
 - Three-layer subtitle detection (v4.1): Bilibili public API → yt-dlp → Whisper; skip Whisper when platform subtitles available (saves 95% energy)
-- Bilingual contrast translation: non-Chinese content auto-translated to Chinese, output as "Chinese translation + English original blockquote" paragraph contrast format
+- Bilingual contrast translation: when user triggers with "双语转录" (bilingual transcribe), non-Chinese content is translated to Chinese, output as "Chinese translation + English original blockquote" paragraph contrast format
 - 6-route model: lesson / explainer / conversation / demo / narrative / bulletin
 - Light-plus principle: keep reasoning / examples / numbers / qualifiers, not a summary
 - Semantic boundary segmentation, not mechanical 60/90s cuts
@@ -130,7 +130,7 @@ python scripts/03_5_translate.py prepare --output-dir outputs/batch/work
 python scripts/04_build_output.py --transcript-dir outputs/batch/transcript --boundaries-dir outputs/batch/work --output-dir outputs/batch
 ```
 
-Final output in `outputs/batch/share/*.md`. Non-Chinese videos auto-output bilingual contrast format.
+Final output in `outputs/batch/share/*.md`. Non-Chinese videos output bilingual contrast format under the "双语转录" (bilingual transcribe) trigger.
 
 ## Docs
 
