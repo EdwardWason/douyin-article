@@ -1,0 +1,25 @@
+# Python 字节码与缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 测试产物
+outputs/
+
+# 凭证与敏感配置
+.env
+.env.*
+*.log
+
+# B站 cookies 实际使用文件（保留 .example 模板）
+scripts/bilibili_cookies.txt
+
+# 审计报告（每次审计重新生成）
+.audit-report.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
