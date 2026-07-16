@@ -1,5 +1,37 @@
 # Changelog
 
+## v4.1.2 — 2026-07-16
+
+### Added — 跨平台通用规则预检应用（源自 skill-publisher v5.18.1 规则 30）
+
+基于 skill-publisher v5.18.1 的「跨平台通用规则预检」规则 30，将 80% 的 ClawHub 规则泛化应用到 douyin-article。这是 ClawHub 规则通用性分析（20% 平台特定 / 60% 概念通用 / 20% 工程最佳实践）的落地实践：
+
+- **frontmatter `metadata.openclaw` 声明层补齐**（规则 30 A 项）：SKILL.md frontmatter 新增 `metadata.openclaw` 嵌套结构，声明 `requires.bins`（python/ffmpeg/ffprobe）、`anyBins`（yt-dlp/agent-browser/curl）、`envVars`（HTTPS_PROXY/HTTP_PROXY/http_proxy/https_proxy/HF_ENDPOINT/SKIP_CERT_CHECK，全部标 `required: false`）、`emoji`、`homepage`。无凭证环境变量（douyin-article 不读取任何凭证），只有代理/镜像/校验开关类可选变量
+- **`.clawhubignore` 文件创建**（规则 30 E 项）：ClawHub 发布专用排除层，覆盖凭证文件 / 临时脚本 / 构建产物 / 临时文件 / 日志 / IDE 文件 / 测试产物（含 mp3/mp4/wav/m4a/srt/vtt 等音视频中间产物）/ ClawHub 自动生成文件 / 本地 cookie 文件
+
+### Layer 4.5 Frontmatter 声明完整性自检
+
+- 代码中所有环境变量引用（os.environ.get / os.environ.setdefault）：
+  - HTTPS_PROXY / HTTP_PROXY（代理）→ 已声明
+  - http_proxy / https_proxy（小写变体）→ 已声明
+  - HF_ENDPOINT（HuggingFace 镜像）→ 已声明
+  - SKIP_CERT_CHECK（v4.1.1 引入的证书校验开关）→ 已声明
+- subprocess 调用的二进制：ffmpeg / ffprobe / yt-dlp / agent-browser / curl / where/which（系统命令）→ 已声明
+- 自检结果：PASS（无未声明的环境变量或二进制）
+
+### Changed — 规则 30 B/C/D 项验证（已满足，无需修改）
+
+- **B 项 description 行为声明段落**：douyin-article description 已声明全部行为（批量转录 + 三层字幕探测 + 双语对比 + 全平台支持 + Do NOT 范围），无需修改
+- **C 项 README 用户警告段落**：README.md 已有"用户须知"段落（本地副作用 / 网络访问 / 资源占用 / 清理方式 4 项），无需修改
+- **D 项 权限声明段落**：SKILL.md 已有 5 行权限声明表格（网络访问 / 文件读写 / 环境变量 / subprocess / 外部 API），无需修改
+
+### Lesson Learned — 跨平台通用规则预检的可移植性验证
+
+douyin-article v4.1.2 是 skill-publisher v5.18.1 规则 30 的首个外部应用案例。验证结论：
+1. **规则 30 的 5 项预检项可移植**：B/C/D 三项 douyin-article 在 v4.1.0-v4.1.1 已满足（说明 skill-publisher 自身的预检流程已经在间接推动这些规则），A/E 两项需要本次补齐
+2. **`metadata.openclaw` 结构对 SkillHub 无副作用**：SkillHub 未知字段被忽略，保留该结构不影响 SkillHub 发布
+3. **不同 skill 的 `metadata.openclaw` 差异显著**：skill-publisher 有 3 个凭证环境变量（GITHUB_TOKEN/CLAWHUB_TOKEN/SKILLHUB_TOKEN），douyin-article 没有凭证环境变量（只有代理/镜像/校验开关类可选变量）。说明 `metadata.openclaw` 不是模板化的填空题，而是每个 skill 基于自身代码的自检结果
+
 ## v4.1.1 — 2026-07-15
 
 ### Fixed
