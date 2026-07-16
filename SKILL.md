@@ -2,7 +2,7 @@
 name: douyin-article
 slug: douyin-article
 displayName: 音视频批量转录为结构化逐字稿
-version: 4.1.1
+version: 4.1.2
 summary: 批量转录任意平台音视频为结构化 Markdown 逐字稿（三层字幕探测 + 双语对比 + 全平台支持）
 license: MIT-0
 description: |
@@ -12,8 +12,39 @@ model: "claude-opus-4-5"
 effort: "medium"
 metadata:
   author: trae-solo
-  version: 4.1.1
+  version: 4.1.2
   category: content-creation
+  openclaw:
+    requires:
+      bins:
+        - python
+        - ffmpeg
+        - ffprobe
+      anyBins:
+        - yt-dlp
+        - agent-browser
+        - curl
+    envVars:
+      - name: HTTPS_PROXY
+        required: false
+        description: 可选，YouTube/受限网络的 HTTPS 代理
+      - name: HTTP_PROXY
+        required: false
+        description: 可选，HTTP 代理
+      - name: http_proxy
+        required: false
+        description: 可选，HTTP 代理（小写变体，部分库只读小写）
+      - name: https_proxy
+        required: false
+        description: 可选，HTTPS 代理（小写变体）
+      - name: HF_ENDPOINT
+        required: false
+        description: 可选，HuggingFace 镜像端点（默认 https://hf-mirror.com，国内 Whisper 模型下载加速）
+      - name: SKIP_CERT_CHECK
+        required: false
+        description: 可选，置 1 时跳过证书校验（默认启用证书校验；仅用户在受限网络明确选择时使用）
+    emoji: "🎬"
+    homepage: https://github.com/EdwardWason/douyin-article
 ---
 
 # 音视频批量转录为结构化逐字稿（全平台 + 双语对比）
