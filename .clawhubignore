@@ -1,0 +1,63 @@
+# === 凭证文件（最高优先级，绝对不能上传） ===
+.env
+.env.local
+.env.*.local
+config.local.json
+*.secret
+credentials.json
+credentials.local.json
+*.pem
+*.key
+
+# === 本地开发调试脚本 ===
+_*.py
+_*.ps1
+_*.js
+_*.sh
+scripts/_*
+
+# === 构建产物 / 缓存 ===
+__pycache__/
+*.pyc
+*.pyo
+node_modules/
+dist/
+build/
+
+# === 临时文件 / 备份 ===
+*.tmp
+*.bak
+*.swp
+*~
+outputs/
+output/
+temp/
+
+# === 日志文件 ===
+*.log
+logs/
+
+# === IDE / 编辑器 ===
+.vscode/
+.idea/
+*.code-workspace
+.DS_Store
+Thumbs.db
+
+# === 测试产物 / 调试输出 ===
+outputs/
+*.mp3
+*.mp4
+*.wav
+*.m4a
+*.srt
+*.vtt
+
+# === ClawHub 自动生成 ===
+skill-card.md
+.clawhub/origin.json
+
+# === 本地 cookie / 凭证文件 ===
+scripts/bilibili_cookies.txt
+*.cookies.txt
+*.session.json
